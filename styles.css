@@ -11,7 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Poppins", sans-serif;
-  background: url("img/home-cat.png") no-repeat center center fixed;
+  background: url("img/home-cat.webp") no-repeat center center fixed;
   background-size: cover;
     transition: background-image 1s ease-in-out, background-color 1s ease-in-out;
 }
