@@ -93,17 +93,17 @@ async function fetchWeather() {
     const body = document.body;
 
     if (weatherMain.includes("cloud")) {
-      body.style.backgroundImage = "url('img/nublado.png')";
+      body.style.backgroundImage = "url('img/nublado.webp')";
     } else if (weatherMain.includes("rain")) {
-      body.style.backgroundImage = "url('img/lluvia.png')";
+      body.style.backgroundImage = "url('img/lluvia.webp')";
     } else if (weatherMain.includes("clear")) {
-      body.style.backgroundImage = "url('img/soleado.png')";
+      body.style.backgroundImage = "url('img/soleado.webp')";
     } else if (weatherMain.includes("snow")) {
-      body.style.backgroundImage = "url('img/nieve.png')";
+      body.style.backgroundImage = "url('img/nieve.webp')";
     } else if (weatherMain.includes("thunder")) {
-      body.style.backgroundImage = "url('img/tormenta.png')";
+      body.style.backgroundImage = "url('img/tormenta.webp')";
     } else {
-      body.style.backgroundImage = "url('img/home-cat.png')";
+      body.style.backgroundImage = "url('img/home-cat.webp')";
     }
 
     body.style.backgroundSize = "cover";
