@@ -1,3 +1,21 @@
+const preloadBackgrounds = () => {
+  const backgrounds = [
+    "img/home-cat.webp",
+    "img/nublado.webp",
+    "img/lluvia.webp",
+    "img/soleado.webp",
+    "img/nieve.webp",
+    "img/tormenta.webp"
+  ];
+
+  backgrounds.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+};
+
+window.addEventListener("DOMContentLoaded", preloadBackgrounds);
+
 // traducciones a la UI
 function applyLanguage(lang) {
   const t = translations[lang];
@@ -106,9 +124,13 @@ async function fetchWeather() {
       body.style.backgroundImage = "url('img/home-cat.webp')";
     }
 
-    body.style.backgroundSize = "cover";
-    body.style.backgroundPosition = "center";
-
+    const img = new Image();
+      img.src = newBg;
+      img.onload = () => {
+        body.style.backgroundImage = `url('${newBg}')`;
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+  };
     weatherDataSection.style.display = "flex";
     weatherDataSection.innerHTML = `
       <div class="fade-in" style="display:flex; align-items:center; gap:15px;">
