@@ -161,3 +161,59 @@ body {
   border-color: #ffb347;
   outline: none;
 }
+
+/* 📱 Mobile (≤ 576px) */
+@media (max-width: 576px) {
+  body {
+    padding: 15px; /* margen para que no toque bordes */
+    background-size: cover;
+  }
+
+  #weather-wrapper {
+    padding: 25px 20px;
+    max-width: 100%;
+  }
+
+  #weather-wrapper h1 {
+    font-size: 20px;
+  }
+
+  #weather-search {
+    flex-direction: column; /* input arriba, botón abajo */
+    gap: 8px;
+  }
+
+  #weather-search input[type="text"] {
+    width: 100%; /* ocupa todo el ancho */
+    font-size: 16px;
+  }
+
+  #weather-search input[type="submit"] {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  #weather-data {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #weather-data img {
+    width: 70px;
+  }
+
+  #weather-data h2 {
+    font-size: 18px;
+  }
+
+  #weather-data p {
+    font-size: 14px;
+  }
+
+  #language-bar {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
