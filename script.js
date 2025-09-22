@@ -73,7 +73,7 @@ async function fetchWeather() {
         </div>`;
       return;
     } else if (data.length === 1) {
-      getWeatherData(data[0].lon, data[0].lat, `${data[0].name}, ${data[0].country}`);
+      return { lon: data[0].lon, lat: data[0].lat, label: `${data[0].name}, ${data[0].country}` };
     } else {
       let options = data.map(
         city => `<option value="${city.lat},${city.lon}">
@@ -100,53 +100,54 @@ async function fetchWeather() {
   }
 
   async function getWeatherData(lon, lat, label) {
-    const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=${lang}&units=metric`;
-    const response = await fetch(weatherURL);
-    if (!response.ok) return;
+  const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=${lang}&units=metric`;
+  const response = await fetch(weatherURL);
+  if (!response.ok) return;
 
-    const data = await response.json();
+  const data = await response.json();
 
-    // cambiar fondo según clima
-    const weatherMain = data.weather[0].main.toLowerCase();
-    const body = document.body;
+  // cambiar fondo según clima
+  const weatherMain = data.weather[0].main.toLowerCase();
+  const body = document.body;
 
-    if (weatherMain.includes("cloud")) {
-      body.style.backgroundImage = "url('img/nublado.webp')";
-    } else if (weatherMain.includes("rain")) {
-      body.style.backgroundImage = "url('img/lluvia.webp')";
-    } else if (weatherMain.includes("clear")) {
-      body.style.backgroundImage = "url('img/soleado.webp')";
-    } else if (weatherMain.includes("snow")) {
-      body.style.backgroundImage = "url('img/nieve.webp')";
-    } else if (weatherMain.includes("thunder")) {
-      body.style.backgroundImage = "url('img/tormenta.webp')";
-    } else {
-      body.style.backgroundImage = "url('img/home-cat.webp')";
-    }
-
-    const img = new Image();
-      img.src = newBg;
-      img.onload = () => {
-        body.style.backgroundImage = `url('${newBg}')`;
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-  };
-    weatherDataSection.style.display = "flex";
-    weatherDataSection.innerHTML = `
-      <div class="fade-in" style="display:flex; align-items:center; gap:15px;">
-        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" 
-             alt="${data.weather[0].description}" width="100" />
-        <div>
-          <h2>${label || data.name}</h2>
-          <p><strong>${t.temp}:</strong> ${Math.round(data.main.temp)}°C</p>
-          <p><strong>${t.desc}:</strong> ${data.weather[0].description}</p>
-        </div>
-      </div>`;
+  let newBg = "img/home-cat.webp";
+  if (weatherMain.includes("cloud")) {
+    newBg = "img/nublado.webp";
+  } else if (weatherMain.includes("rain")) {
+    newBg = "img/lluvia.webp";
+  } else if (weatherMain.includes("clear")) {
+    newBg = "img/soleado.webp";
+  } else if (weatherMain.includes("snow")) {
+    newBg = "img/nieve.webp";
+  } else if (weatherMain.includes("thunder")) {
+    newBg = "img/tormenta.webp";
   }
+
+  const img = new Image();
+  img.src = newBg;
+  img.onload = () => {
+    body.style.backgroundImage = `url('${newBg}')`;
+    body.style.backgroundSize = "cover";
+    body.style.backgroundPosition = "center";
+  };
+
+  // mostrar datos del clima
+  weatherDataSection.style.display = "flex";
+  weatherDataSection.innerHTML = `
+    <div class="fade-in" style="display:flex; align-items:center; gap:15px;">
+      <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" 
+           alt="${data.weather[0].description}" width="100" />
+      <div>
+        <h2>${label || data.name}</h2>
+        <p><strong>${t.temp}:</strong> ${Math.round(data.main.temp)}°C</p>
+        <p><strong>${t.desc}:</strong> ${data.weather[0].description}</p>
+      </div>
+    </div>`;
+}
 
   const geocodeData = await getLonAndLat();
   if (geocodeData) {
-    getWeatherData(geocodeData.lon, geocodeData.lat);
+    getWeatherData(geocodeData.lon, geocodeData.lat, geocodeData.label);
   }
 
   document.getElementById("search").value = "";
