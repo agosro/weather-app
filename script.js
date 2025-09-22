@@ -36,7 +36,17 @@ document.getElementById("lang-select").addEventListener("change", (e) => {
   applyLanguage(newLang); 
 });
 
+  function setBackground(newBg) {
+  const body = document.body;
+  const img = new Image();
+  img.src = newBg;
 
+  img.onload = () => {
+    body.style.backgroundImage = `url('${newBg}')`;
+    body.style.backgroundSize = "cover";
+    body.style.backgroundPosition = "center";
+    };
+  };
 
 async function fetchWeather() {
   let searchInput = document.getElementById("search").value.trim();
@@ -98,20 +108,6 @@ async function fetchWeather() {
       });
     }
   }
-
-  function setBackground(newBg) {
-  const body = document.body;
-  const img = new Image();
-  img.src = newBg;
-
-  img.onload = () => {
-    body.style.opacity = 0; // fade-out
-    setTimeout(() => {
-      body.style.backgroundImage = `url('${newBg}')`;
-      body.style.opacity = 1; // fade-in
-    }, 300); // tiempo de fade-out antes de cambiar
-  };
-}
 
 async function getWeatherData(lon, lat, label) {
   const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=${lang}&units=metric`;
