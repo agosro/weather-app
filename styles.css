@@ -13,7 +13,7 @@ body {
   font-family: "Poppins", sans-serif;
   background: url("img/home-cat.webp") no-repeat center center fixed;
   background-size: cover;
-    transition: background-image 1s ease-in-out, background-color 1s ease-in-out;
+  transition: background-image 1s ease-in-out, background-color 1s ease-in-out;
 }
 
 /* tarjeta principal */
@@ -33,7 +33,7 @@ body {
   margin-bottom: 20px;
   font-size: 28px;
   font-weight: 600;
-  color: #333;
+  color: #333; 
 }
 
 /* caja de búsqueda */

@@ -99,39 +99,45 @@ async function fetchWeather() {
     }
   }
 
-  async function getWeatherData(lon, lat, label) {
+  function setBackground(newBg) {
+  const body = document.body;
+  const img = new Image();
+  img.src = newBg;
+
+  img.onload = () => {
+    body.style.opacity = 0; // fade-out
+    setTimeout(() => {
+      body.style.backgroundImage = `url('${newBg}')`;
+      body.style.opacity = 1; // fade-in
+    }, 300); // tiempo de fade-out antes de cambiar
+  };
+}
+
+async function getWeatherData(lon, lat, label) {
   const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&lang=${lang}&units=metric`;
   const response = await fetch(weatherURL);
   if (!response.ok) return;
 
   const data = await response.json();
 
-  // cambiar fondo según clima
+  // cambiar fondo según clima principal
   const weatherMain = data.weather[0].main.toLowerCase();
-  const body = document.body;
 
-  let newBg = "img/home-cat.webp";
   if (weatherMain.includes("cloud")) {
-    newBg = "img/nublado.webp";
+    setBackground("img/nublado.webp");
   } else if (weatherMain.includes("rain")) {
-    newBg = "img/lluvia.webp";
+    setBackground("img/lluvia.webp");
   } else if (weatherMain.includes("clear")) {
-    newBg = "img/soleado.webp";
+    setBackground("img/soleado.webp");
   } else if (weatherMain.includes("snow")) {
-    newBg = "img/nieve.webp";
+    setBackground("img/nieve.webp");
   } else if (weatherMain.includes("thunder")) {
-    newBg = "img/tormenta.webp";
+    setBackground("img/tormenta.webp");
+  } else {
+    setBackground("img/home-cat.webp");
   }
 
-  const img = new Image();
-  img.src = newBg;
-  img.onload = () => {
-    body.style.backgroundImage = `url('${newBg}')`;
-    body.style.backgroundSize = "cover";
-    body.style.backgroundPosition = "center";
-  };
-
-  // mostrar datos del clima
+  // mostrar datos
   weatherDataSection.style.display = "flex";
   weatherDataSection.innerHTML = `
     <div class="fade-in" style="display:flex; align-items:center; gap:15px;">
