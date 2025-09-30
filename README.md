@@ -17,3 +17,13 @@ Aplicación web simple y moderna para consultar el clima actual de cualquier ciu
 - **CSS3** (flexbox, glassmorphism, animaciones)
 - **JavaScript (ES6+)**
 - **OpenWeather API** para datos meteorológicos
+
+## Capturas de pantalla
+
+![Pantalla principal](img/captura1.png)
+
+![Seleccion de ciudad](img/captura2.png)
+
+![Clima soleado](img/captura3.png)
+
+![Clima tormenta](img/captura4.png)
